@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    container_name: moviesight-web
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/web/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+
+  app:
+    container_name: moviesight-app
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
